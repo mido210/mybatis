@@ -1,0 +1,29 @@
+-- todo : tno, title, reg_date, finish
+-- 오라클의 데이터 타입 : 숫자(number), 문자열(varchar2), 날짜(년/월/일/초)(date)
+create table todo(
+    tno number(5) primary key,
+    title varchar2(30 char),
+    reg_date date,
+    finish number(1)
+);
+--  일련번호 객체(sequence) -> .nextval로 접근
+drop sequence  todo_seq;
+create sequence todo_seq;
+select  todo_seq.nextval from dual;
+
+-- todo 추가
+insert into todo(tno, title, reg_date, finish)
+values(todo_seq.nextval,'밥먹기', sysdate,0);
+commit;
+
+select * from todo;
+
+insert into todo(tno, title, reg_date, finish)
+values(todo_seq.nextval,'날아다니기',sysdate, 0);
+commit;
+
+-- where로 조건을 지정 -> 조건이 없으면 모든 행이 다 변경된다
+update todo set finish=1 where tno=1;
+commit;
+delete from todo where tno=2;
+commit;
